@@ -6,7 +6,7 @@
 /*   By: smetzler <smetzler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:21:14 by smetzler          #+#    #+#             */
-/*   Updated: 2021/11/12 14:23:51 by smetzler         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:24:28 by smetzler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	main(int argc, char *argv[])
 
 	if (argc <= 1)
 		return (ft_putendl_fd("argn <1", 1));
-	printf("\n value %c\n", argv[1][0]);
 	if (ft_argvalidcheck(argv, argc))
 		return (ft_putendl_fd("Error here", 1));
 	//stack_a = ft_makestack(argv, argc - 1);
