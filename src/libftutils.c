@@ -6,24 +6,25 @@
 /*   By: smetzler <smetzler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:55:52 by smetzler          #+#    #+#             */
-/*   Updated: 2021/11/10 10:56:22 by smetzler         ###   ########.fr       */
+/*   Updated: 2021/11/12 15:37:20 by smetzler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pushswap.h"
+#include <stdio.h>
 
 int	ft_isdigit(int n)
 {
-	if (n >= '0' && n <= '9')
-		return (1);
-	return (0);
+	if (n < '0' || n > '9')
+		return (0);
+	return (1);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
-	int	sum;
+	int		i;
+	int		sign;
+	long	sum;
 
 	sum = 0;
 	i = 0;

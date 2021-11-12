@@ -6,11 +6,12 @@
 /*   By: smetzler <smetzler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:02:57 by smetzler          #+#    #+#             */
-/*   Updated: 2021/11/10 18:15:14 by smetzler         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:09:05 by smetzler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pushswap.h"
+#include <stdio.h>
 
 /*
 ** Checks if all input parameters have number formatting,
@@ -21,31 +22,44 @@ int	ft_argvalidcheck(char **argv, int nvalues)
 	int	i;
 	int	j;
 
-	i = 0;
+	i = 1;
 	while (i < nvalues)
 	{
 		j = 0;
+		if (argv[i][0] == '-' || argv[i][0] == '+')
+			j++;
 		while (argv[i][j] != '\0')
 		{
-			if (argv[i][0] == '-' && j == 0)
-				j++;
 			if (!ft_isdigit(argv[i][j]))
-				return (1);
+			{
+				printf("%c no digit\n", argv[i][j]);
+				return (1); 
+			}
 			if ((argv[i][0] == '-' && argv[i][1] == '\0') || j > 10)
+			{
+				ft_putendl_fd("Error no number", 1);
 				return (1);
+			}
 			j++;
 		}
 		i++;
 	}
-	if (ft_checkers(argv, nvalues, 0, 0))
+	if (ft_checkers(argv, nvalues, 1, 0))
+	{
+		printf("checkers failed\n");
 		return (1);
+	}
+	printf("checkers xyz\n");
 	return (0);
 }
 
 int	ft_checkint(long num)
 {
 	if (num > 2147483647 || num < -2147483648)
+	{
+		printf("%ld is not an integer \n", num);
 		return (1);
+	}
 	return (0);
 }
 
@@ -56,27 +70,28 @@ int	ft_checkint(long num)
 
 int	ft_checkers(char **argv, int nvalues, int i, int flag)
 {
-	int	*values;
-	int	j;
+	long	*values;
+	int		j;
 
 	values = malloc(sizeof(long) * nvalues);
-	if (!values)
+	if (values == NULL)
 		return (1);
 	while (i < nvalues)
 	{
 		j = 0;
-		values[i] = ft_atoi(argv[i + 1]);
-		while (j < i)
+		values[i - 1] = ft_atoi(argv[i]);
+		printf("value: %li\n", values[i-1]);
+	 	while (j < i)
 		{
-			if (values[j] == values[i])
+			if (values[j] == values[i - 1])
 				flag = 1;
 			j++;
 		}
-		if (ft_checkint(values[i]))
+		if (ft_checkint(values[i - 1]))
 			flag = 1;
 		i++;
 	}
-	ft_free((void **)&values)
+	free(values);
 	return (flag);
 }
 
