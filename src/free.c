@@ -6,7 +6,7 @@
 /*   By: smetzler <smetzler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:25:08 by smetzler          #+#    #+#             */
-/*   Updated: 2021/11/10 15:53:04 by smetzler         ###   ########.fr       */
+/*   Updated: 2021/11/13 16:37:33 by smetzler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,30 @@ void	ft_free(void **arr)
 	arr = NULL;
 }
 
-void	ft_lstdelone(t_node *lst, void (*del)(void *))
+void	ft_lstdelone(t_node *lst)
 {
-	if (lst && del)
+	if (lst)
 	{
-		del(lst->num);
-		del(lst->rank);
-		free(lst);
+		ft_free((void **)&lst);
+		lst = NULL;
 	}
 }
 
-void	ft_lstclear(t_node **lst, void (*del)(void *))
+void	ft_lstclear(t_node **lst)
 {
 	t_node	*helper;
 
-	while (*lst && del)
+	while (*lst)
 	{	
 		helper = (*lst)->next;
-		ft_lstdelone(*lst, del);
+		ft_lstdelone(*lst);
 		(*lst) = helper;
 	}
 	*lst = NULL;
+}
+
+void	ft_freestacks(t_node **stack_a, t_node **stack_b)
+{
+	ft_lstclear(stack_a);
+	ft_lstclear(stack_b);
 }

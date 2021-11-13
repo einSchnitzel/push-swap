@@ -6,7 +6,7 @@
 /*   By: smetzler <smetzler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:55:52 by smetzler          #+#    #+#             */
-/*   Updated: 2021/11/12 15:37:20 by smetzler         ###   ########.fr       */
+/*   Updated: 2021/11/13 14:02:04 by smetzler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int	ft_isdigit(int n)
 	return (1);
 }
 
+/*
+** Write array into long 
+*/
 long	ft_atoi(const char *str)
 {
 	int		i;
@@ -42,4 +45,24 @@ long	ft_atoi(const char *str)
 		i++;
 	}
 	return (-sum * sign);
+}
+
+/*
+** Write a string and but a Newline at the end
+*/
+int	ft_putendl_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (s != NULL)
+	{
+		while (s[i] != '\0')
+		{
+			write(fd, &s[i], 1);
+			i++;
+		}
+	}
+	write(fd, "\n", 1);
+	return (0);
 }
