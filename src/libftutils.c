@@ -6,12 +6,11 @@
 /*   By: smetzler <smetzler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:55:52 by smetzler          #+#    #+#             */
-/*   Updated: 2021/11/13 14:02:04 by smetzler         ###   ########.fr       */
+/*   Updated: 2021/11/16 10:53:52 by smetzler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pushswap.h"
-#include <stdio.h>
 
 int	ft_isdigit(int n)
 {

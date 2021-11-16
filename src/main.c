@@ -6,7 +6,7 @@
 /*   By: smetzler <smetzler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:21:14 by smetzler          #+#    #+#             */
-/*   Updated: 2021/11/13 16:37:28 by smetzler         ###   ########.fr       */
+/*   Updated: 2021/11/16 16:32:28 by smetzler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,51 +21,55 @@ t_node	*ft_makestack(char **argv, int nvalues)
 {
 	int		i;
 	t_node	*node;
-	t_node	*first;
+	t_node	*head;
 
-	i = 1;
-	first = NULL;
 	node = NULL;
-	first = ft_makenode(argv[i], argv, nvalues - 1);
+	i = 1;
+	node = ft_makenode(argv[i], argv, nvalues - 1);
+	printf("Iteration %i: \t%i, rank %i\n", i, node->num, node->rank);
+	head = node;
 	i++;
-	printf("%d rank %d\n", first->num, first->rank);
 	while (i < nvalues)
 	{
 		node = ft_makenode(argv[i], argv, nvalues - 1);
 		if (node->rank == -1 || node == NULL)
 		{
-			ft_lstclear(&first);
+			ft_lstclear(&head);
 			ft_lstclear(&node);
 			return (NULL);
 		}
-		printf("%i, rank %i\n", node->num, node->rank);
-		ft_lstadd_back(&first, node);
+		ft_lstadd_back(&head, node);
+		printf("Iteration %i: \t%i, rank %i\n", i, node->num, node->rank);
 		i++;
 	}
-	return (first);
+	return (head);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_node	*stack_a;
+	int		issorted;
 	t_node	*stack_b;
-
+	//char *mm= "13";
+	
 	if (argc <= 1)
 		return (0);
 	if (ft_argvalidcheck(argv, argc))
 		return (ft_putendl_fd("Error", 1));
-	ft_putendl_fd("main", 1);
 	stack_a = ft_makestack(argv, argc);
 	if (stack_a == NULL)
 		return (ft_putendl_fd("Memory Error", 1));
-	stack_b = NULL;
-	
-
-	// stack_b = NULL;
-	// while (ft_checkifsorted(stack_a))
-	// {
-	// 	ft_sort(stack_a, stack_b, argc - 1);
-	// }
-	ft_freestacks(&stack_a, &stack_b);
+	issorted = ft_checkissorted(&stack_a, 1);
+	if (issorted == 0)
+	{
+		printf("is not sorted\n");
+		stack_b = ft_makenode(argv[2], argv, argc - 1);
+		printf("stacka1: \t%i, rank %i\n", stack_a->num, stack_a->rank);
+		printf("stackb1: \t%i, rank %i\n", stack_b->num, stack_b->rank);
+		ft_pushtob(&stack_b, &stack_a);
+		printf("stacka1: \t%i, rank %i\n", stack_a->num, stack_a->rank);
+		printf("stackb1: \t%i, rank %i\n", stack_b->num, stack_b->rank);
+		//ft_sort(&stack_a, argc - 1);
+	}
 	return (0);
 }

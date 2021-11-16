@@ -6,7 +6,7 @@
 /*   By: smetzler <smetzler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:24:09 by smetzler          #+#    #+#             */
-/*   Updated: 2021/11/13 16:29:12 by smetzler         ###   ########.fr       */
+/*   Updated: 2021/11/16 14:20:08 by smetzler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 ** finds the rank corresponding to each node.
 */
-
 int	ft_findrank(int value, char **argv, int nvalues)
 {
 	int	*values;
@@ -56,6 +55,23 @@ t_node	*ft_makenode(char *str, char **argv, int nvalues)
 	return (node);
 }
 
+/*
+** go to last entry in stack
+*/
+t_node	*ft_lstlast(t_node *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->next)
+	{
+		lst = lst->next;
+	}
+	return (lst);
+}
+
+/*
+** adds node at front
+*/
 void	ft_lstadd_front(t_node **lst, t_node *new)
 {
 	if (lst && new)
@@ -65,17 +81,17 @@ void	ft_lstadd_front(t_node **lst, t_node *new)
 	}
 }
 
-void	ft_lstadd_back(t_node **lst, t_node *new)
+void	ft_lstadd_back(t_node **first, t_node *new)
 {
-	t_node	*last;
+	t_node	*lst;
 
-	last = *lst;
-	if (last)
+	if (!first || !new)
+		return ;
+	lst = *first;
+	while (lst->next != NULL)
 	{
-		while (last && new && last->next)
-			last = last->next;
-		last->next = new;
+		lst = lst->next;
 	}
-	else
-		*lst = new;
+	lst->next = new;
+	new->next = NULL;
 }
