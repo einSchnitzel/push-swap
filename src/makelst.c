@@ -6,7 +6,7 @@
 /*   By: smetzler <smetzler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:24:09 by smetzler          #+#    #+#             */
-/*   Updated: 2021/11/16 14:20:08 by smetzler         ###   ########.fr       */
+/*   Updated: 2021/11/18 16:53:37 by smetzler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,17 @@
 /*
 ** finds the rank corresponding to each node.
 */
+void ft_printlst(t_node *lst)
+{
+	while (lst != NULL)
+	{
+		printf("%i ", lst->num);
+		lst = lst->next;
+	}
+	printf("\n");
+}
+
+//error resolved
 int	ft_findrank(int value, char **argv, int nvalues)
 {
 	int	*values;
@@ -28,12 +39,12 @@ int	ft_findrank(int value, char **argv, int nvalues)
 		return (-1);
 	while (i <= nvalues)
 	{
-		values[i] = (int) ft_atoi(argv[i]);
-		if (value > values[i])
+		values[i - 1] = (int)ft_atoi(argv[i]);
+		if (value > values[i - 1])
 			rank++;
 		i++;
 	}
-	ft_free((void **)&values);
+	free(values);
 	return (rank);
 }
 
@@ -49,9 +60,10 @@ t_node	*ft_makenode(char *str, char **argv, int nvalues)
 	node = malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
+	node->next = NULL;
 	node->num = value;
 	node->rank = ft_findrank(value, argv, nvalues);
-	node->next = NULL;
+	ft_printlst(node);
 	return (node);
 }
 
@@ -88,6 +100,9 @@ void	ft_lstadd_back(t_node **first, t_node *new)
 	if (!first || !new)
 		return ;
 	lst = *first;
+	// printf("addback first\t\t\t %i\n",(*first)->num);
+	// printf("addback lst \t\t\t %i\n",lst->num);
+	// printf("addback new \t\t\t %i\n",new->num);
 	while (lst->next != NULL)
 	{
 		lst = lst->next;
