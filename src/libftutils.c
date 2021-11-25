@@ -6,7 +6,7 @@
 /*   By: smetzler <smetzler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:55:52 by smetzler          #+#    #+#             */
-/*   Updated: 2021/11/16 10:53:52 by smetzler         ###   ########.fr       */
+/*   Updated: 2021/11/25 16:28:18 by smetzler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,21 @@ int	ft_isdigit(int n)
 	if (n < '0' || n > '9')
 		return (0);
 	return (1);
+}
+/*
+** determine size of list
+*/
+int	ft_lstsize(t_node *lst)
+{
+	int	counter;
+
+	counter = 0;
+	while (lst)
+	{
+		counter++;
+		lst = lst->next;
+	}
+	return (counter);
 }
 
 /*
